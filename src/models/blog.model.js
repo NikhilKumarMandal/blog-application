@@ -10,15 +10,18 @@ const blogSchema = new Schema(
         type: String,
         required: true
     },
-    date_posted: {
-        type: Date,
-        default: Date.now
+    thumbnail:{
+        type: String,
+        required: true
     },
     author: {
         type: Schema.Types.ObjectId,
         ref: 'User',
         required: true
     }
+},
+{
+    timestamps: true
 }
 );
 
