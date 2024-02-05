@@ -1,4 +1,5 @@
 import { Router } from "express";
+import passport from "passport";
 import {
      registerUser,
      loginUser,
@@ -23,5 +24,19 @@ router.route("/login").post(loginUser)
 
 //secured routes
 router.route("/logout").post(verifyJWT,  logoutUser)
+
+
+
+
+// SSO routes
+router.route("/google").get(
+    passport.authenticate("google", {
+      scope: ["profile", "email"],
+    }),
+    (req, res) => {
+      res.send("redirecting to google...");
+    }
+  );
+  
 
 export default router
