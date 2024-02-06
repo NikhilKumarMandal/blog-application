@@ -15,6 +15,8 @@ app.use(express.urlencoded({extended: true, limit: "16kb"}))
 app.use(express.static("public"))
 app.use(cookieParser())
 
+app.set("view engine","ejs")
+
 
 //routes import
 import userRouter from "./routes/user.routes.js"
@@ -25,5 +27,8 @@ app.use("/api/v1/users", userRouter)
 app.use("/api/v1/blogs", blogRouter)
 
 app.use(passport.initialize());
+
+
+
 
 export { app }
