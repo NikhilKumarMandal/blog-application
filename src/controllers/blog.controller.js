@@ -148,7 +148,36 @@ const getBlogById = asyncHandler(async(req,res) => {
 })
 
 const getAllBlog = asyncHandler(async(req,res) => {
+    const { query,} = req.query;
 
+    const blogs = await Blog.aggregate([
+    {
+    $match: query?.length > 0
+        ? 
+            {
+            title: {
+                $regex: query.trim(),
+                $options: "i",
+            },
+            }
+        : {},
+    },
+    {
+    $sort: {
+        updatedAt: -1,
+    },
+    },
+]);
+
+    return res
+    .status(200)
+    .json(
+        new ApiResponse(
+            200,
+            blogs,
+            "blogs fetched successfully"
+            )
+        );
 })
 
 export {
